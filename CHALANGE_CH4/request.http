@@ -1,0 +1,82 @@
+// -------- USERS --------
+// POST USERS
+POST http://localhost:3000/api/v1/users
+Content-Type: application/json
+
+{
+    "name" : "jeki",
+    "email" : "jeki@gmail.com",
+    "password" : "jeki123"
+}
+
+###
+// GET ALL USERS
+GET http://localhost:3000/api/v1/users
+
+###
+// GET DETAIL USERS
+GET http://localhost:3000/api/v1/users/3
+
+-----------------------------------------------------------
+// -------- PROFILES --------
+###
+// POST PROFILES
+POST http://localhost:3000/api/v1/profiles
+Content-Type: application/json
+
+{
+    "user_id" : 4,
+    "identity_type" : "e-cuk",
+    "identity_number" : "123321",
+    "address" : "Pakistan"
+}
+
+###
+// GET ALL PROFILES
+GET http://localhost:3000/api/v1/profiles
+
+###
+// GET DETAIL PROFILES
+GET http://localhost:3000/api/v1/profiles/5
+
+-----------------------------------------------------------
+
+
+###
+// POST ACCOUNTS
+POST http://localhost:3000/api/v1/accounts
+Content-Type: application/json
+
+{
+    "user_id" : 3, 
+    "bank_name" : "acc_bujang",
+    "bank_account_number" : "331122", 
+    "balance" : 9000000
+}
+
+###
+// GET ALL ACCOUNT
+GET http://localhost:3000/api/v1/accounts/
+
+###
+// GET DETAIL ACCOUNT
+GET http://localhost:3000/api/v1/accounts/4
+
+-----------------------------------------------------------
+###
+POST http://localhost:3000/api/v1/transactions
+Content-Type: application/json
+
+{
+    "source" : 5,
+    "destination" : 2,
+    "amount" : 200000
+}
+
+###
+// GET ALL TRANSACTIONS
+GET http://localhost:3000/api/v1/transactions/
+
+###
+// GET DETAIL TRANSACTIONS
+GET http://localhost:3000/api/v1/transactions/9
