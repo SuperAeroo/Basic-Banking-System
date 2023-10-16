@@ -87,7 +87,7 @@ module.exports = {
             if (!user) {
                 return res.status(400).json({
                     status: false,
-                    message: 'Email doesn\'t exist!',
+                    message: 'Id doesn\'t exist!',
                     data: null
                 });
             }
