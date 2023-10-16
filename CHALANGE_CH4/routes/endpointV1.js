@@ -4,7 +4,7 @@ const router = express.Router();
 const { createUsers, getAllUsers, getDetailUsers, updateUsers, deleteUsers } = require("../handler/v1/users");
 const { createAccounts, getAllAccounts, getDetailAccounts} = require("../handler/v1/accounts");
 const { createTransactions, getAllTransactions, getDetailTransactions } = require("../handler/v1/transactions");
-const { createProfiles, getAllProfiles, getDetailProfiles } = require("../handler/v1/profiles");
+const { createProfiles, getAllProfiles, getDetailProfiles, updateProfiles, deleteProfiles } = require("../handler/v1/profiles");
 
 router.get("/", (req, res) => {
     res.status(200).json({
@@ -25,6 +25,8 @@ router.delete("/users/:id", deleteUsers);
 router.post("/profiles", createProfiles);
 router.get("/profiles", getAllProfiles);
 router.get("/profiles/:id", getDetailProfiles);
+router.put("/profiles/:id", updateProfiles);
+router.delete("/profiles/:id", deleteProfiles);
 
 //accounts
 router.post("/accounts", createAccounts);

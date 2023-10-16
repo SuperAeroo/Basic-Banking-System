@@ -1,5 +1,5 @@
-// -------- USERS --------
-// POST USERS
+// ---------------- USERS ----------------
+// CREATE USERS
 POST http://localhost:3000/api/v1/users
 Content-Type: application/json
 
@@ -18,7 +18,7 @@ GET http://localhost:3000/api/v1/users
 GET http://localhost:3000/api/v1/users/6
 
 ###
-// PUT DETAIL USERS
+// CHANGE DETAIL USERS
 PUT http://localhost:3000/api/v1/users/6
 Content-Type: application/json
 
@@ -33,17 +33,17 @@ Content-Type: application/json
 DELETE http://localhost:3000/api/v1/users/5
 
 -----------------------------------------------------------
-// -------- PROFILES --------
+// ---------------- PROFILES ----------------
 ###
 // POST PROFILES
 POST http://localhost:3000/api/v1/profiles
 Content-Type: application/json
 
 {
-    "user_id" : 4,
-    "identity_type" : "e-cuk",
-    "identity_number" : "123321",
-    "address" : "Pakistan"
+    "user_id" : 6,
+    "identity_type" : "e-nal",
+    "identity_number" : "662211",
+    "address" : "Zimbabwe"
 }
 
 ###
@@ -52,7 +52,23 @@ GET http://localhost:3000/api/v1/profiles
 
 ###
 // GET DETAIL PROFILES
-GET http://localhost:3000/api/v1/profiles/4
+GET http://localhost:3000/api/v1/profiles/110
+
+###
+// CHANGE DETAIL PROFILES
+PUT http://localhost:3000/api/v1/profiles/8
+Content-Type: application/json
+
+{
+    "user_id" : 6,
+    "identity_type" : "e-nakkk",
+    "identity_number" : "112266",
+    "address" : "New Zealando"
+}
+
+###
+// DELETE PROFILES
+DELETE http://localhost:3000/api/v1/profiles/7
 
 -----------------------------------------------------------
 
