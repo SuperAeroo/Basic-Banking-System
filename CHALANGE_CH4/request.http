@@ -4,9 +4,9 @@ POST http://localhost:3000/api/v1/users
 Content-Type: application/json
 
 {
-    "name" : "jeki",
-    "email" : "jeki@gmail.com",
-    "password" : "jeki123"
+    "name" : "renal",
+    "email" : "renal@gmail.com",
+    "password" : "renal123"
 }
 
 ###
@@ -15,7 +15,22 @@ GET http://localhost:3000/api/v1/users
 
 ###
 // GET DETAIL USERS
-GET http://localhost:3000/api/v1/users/3
+GET http://localhost:3000/api/v1/users/6
+
+###
+// PUT DETAIL USERS
+PUT http://localhost:3000/api/v1/users/6
+Content-Type: application/json
+
+{
+    "name" : "renalnew",
+    "email" : "renala@gmail.com",
+    "password" : "renal123"
+}
+
+###
+// DELETE USERS
+DELETE http://localhost:3000/api/v1/users/5
 
 -----------------------------------------------------------
 // -------- PROFILES --------
@@ -37,11 +52,11 @@ GET http://localhost:3000/api/v1/profiles
 
 ###
 // GET DETAIL PROFILES
-GET http://localhost:3000/api/v1/profiles/5
+GET http://localhost:3000/api/v1/profiles/4
 
 -----------------------------------------------------------
 
-
+// ACCOUNT BANK
 ###
 // POST ACCOUNTS
 POST http://localhost:3000/api/v1/accounts

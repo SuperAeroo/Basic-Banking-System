@@ -77,6 +77,64 @@ module.exports = {
         } catch (err) {
             next(err);
         }
+    },
+    updateUsers : async(req, res, next)=> {
+        try {
+            let {id} = req.params
+            let {name,email,password} = req.body
+
+            let user = await prisma.users.findUnique({ where: { id: Number(id) } });
+            if (!user) {
+                return res.status(400).json({
+                    status: false,
+                    message: 'Email doesn\'t exist!',
+                    data: null
+                });
+            }
+
+            let updateOperation = await prisma.users.update({
+                where: { id: Number(id) },
+                data:{ 
+                    name : name, 
+                    email : email, 
+                    password }
+            });
+
+            res.status(200).json({
+                status: true,
+                message: 'OK',
+                data: updateOperation
+            });
+        } catch (err) {
+            next(err.message)
+        }
+    },
+    deleteUsers : async(req, res, next)=> {
+        try {
+            let { id } = req.params;
+
+            let user = await prisma.users.findUnique({ where: { id: Number(id) } });
+            if (!user) {
+                return res.status(400).json({
+                    status: false,
+                    message: 'Id doesn\'t exist!',
+                    data: null
+                });
+            }
+
+            let deleteOperation = await prisma.users.delete({
+                where: { id: Number(id) }
+            });
+
+            res.status(200).json({
+                status: true,
+                message: 'OK',
+                data: deleteOperation
+            });
+        } catch (err) {
+            next(err);
+        }
     }
+
     
 }
