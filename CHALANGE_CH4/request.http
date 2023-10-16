@@ -128,4 +128,21 @@ GET http://localhost:3000/api/v1/transactions/
 
 ###
 // GET DETAIL TRANSACTIONS
-GET http://localhost:3000/api/v1/transactions/9
+GET http://localhost:3000/api/v1/transactions/10
+
+###
+//UPDATE TRANSACTION
+PUT http://localhost:3000/api/v1/transactions/10
+Content-Type: application/json
+
+{
+    "source_account_id" : 4,
+    "destination_account_id" : 2,
+    "amount" : 15000000000
+}
+
+
+###
+// DELETE TRANSACTIONS
+DELETE http://localhost:3000/api/v1/transactions/10
+

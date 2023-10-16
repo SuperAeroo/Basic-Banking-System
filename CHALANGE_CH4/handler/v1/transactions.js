@@ -111,5 +111,76 @@ module.exports = {
         } catch (err) {
             next(err);
         }
+    },
+    updateTransactions : async(req, res, next)=> {
+        try {
+            let {id} = req.params
+            let {user_id, source_account_id, destination_account_id, amount} = req.body
+
+            let existSourceId = await prisma.bank_Accounts.findFirst({where : {id:source_account_id},})
+            let existDestinationId = await prisma.bank_Accounts.findFirst({where : {id:destination_account_id},})
+            if (!existSourceId && !existDestinationId) {
+                return res.status(400).json({
+                    status: false,
+                    message: 'Source Id Or Destination Not Found!',
+                    data: null
+                });
+            }
+
+            let transaction = await prisma.transactions.findUnique({ where: { id: Number(id) } });
+            if (!transaction) {
+                return res.status(400).json({
+                    status: false,
+                    message: 'Id '+id+' doesn\'t exist!',
+                    data: null
+                });
+            }
+            if (existSourceId.balance < amount) {
+                return res.status(400).json({
+                    status: false,
+                    message: "saldo tidak mencukupi",
+                    data: null,
+                });
+            }
+
+            let updateOperation = await prisma.transactions.update({
+                where: { id: Number(id) },
+                data:{ user_id, source_account_id, destination_account_id, amount }
+            });
+
+            res.status(200).json({
+                status: true,
+                message: 'OK',
+                data: updateOperation
+            });
+        } catch (err) {
+            next(err.message)
+        }
+    },
+    deleteTransactions : async(req, res, next)=> {
+        try {
+            let { id } = req.params;
+
+            let transaction = await prisma.transactions.findUnique({ where: { id: Number(id) } });
+            if (!transaction) {
+                return res.status(400).json({
+                    status: false,
+                    message: 'Id doesn\'t exist!',
+                    data: null
+                });
+            }
+
+            let deleteOperation = await prisma.transactions.delete({
+                where: { id: Number(id) }
+            });
+
+            res.status(200).json({
+                status: true,
+                message: 'OK',
+                data: deleteOperation
+            });
+        } catch (err) {
+            next(err);
+        }
     }
 }

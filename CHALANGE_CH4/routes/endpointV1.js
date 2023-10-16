@@ -3,7 +3,7 @@ const router = express.Router();
 
 const { createUsers, getAllUsers, getDetailUsers, updateUsers, deleteUsers } = require("../handler/v1/users");
 const { createAccounts, getAllAccounts, getDetailAccounts, updateAccounts, deleteAccounts} = require("../handler/v1/accounts");
-const { createTransactions, getAllTransactions, getDetailTransactions } = require("../handler/v1/transactions");
+const { createTransactions, getAllTransactions, getDetailTransactions, deleteTransactions, updateTransactions } = require("../handler/v1/transactions");
 const { createProfiles, getAllProfiles, getDetailProfiles, updateProfiles, deleteProfiles } = require("../handler/v1/profiles");
 
 router.get("/", (req, res) => {
@@ -39,5 +39,7 @@ router.delete("/accounts/:id", deleteAccounts);
 router.post("/transactions", createTransactions);
 router.get("/transactions", getAllTransactions);
 router.get("/transactions/:id", getDetailTransactions);
+router.put("/transactions/:id", updateTransactions);
+router.delete("/transactions/:id", deleteTransactions);
 
 module.exports = router;
