@@ -81,6 +81,64 @@ module.exports = {
         } catch (err) {
             next(err);
         }
+    },
+    updateAccounts : async(req, res, next)=> {
+        try {
+            let {id} = req.params
+            let {user_id, bank_name,bank_account_number,balance} = req.body
+
+            let account = await prisma.bank_Accounts.findUnique({ where: { id: Number(id) } });
+            if (!account) {
+                return res.status(400).json({
+                    status: false,
+                    message: 'Id doesn\'t exist!',
+                    data: null
+                });
+            }
+
+            let updateOperation = await prisma.bank_Accounts.update({
+                where: { id: Number(id) },
+                data:{ 
+                    user_id : user_id, 
+                    bank_name : bank_name, 
+                    bank_account_number : bank_account_number, 
+                    balance : balance }
+            });
+
+            res.status(200).json({
+                status: true,
+                message: 'OK',
+                data: updateOperation
+            });
+        } catch (err) {
+            next(err.message)
+        }
+    },
+    deleteAccounts : async(req, res, next)=> {
+        try {
+            let { id } = req.params;
+
+            let user = await prisma.bank_Accounts.findUnique({ where: { id: Number(id) } });
+            if (!user) {
+                return res.status(400).json({
+                    status: false,
+                    message: 'Id '+id+' doesn\'t exist!',
+                    data: null
+                });
+            }
+
+            let deleteOperation = await prisma.bank_Accounts.delete({
+                where: { id: Number(id) }
+            });
+
+            res.status(200).json({
+                status: true,
+                message: 'OK',
+                data: deleteOperation
+            });
+        } catch (err) {
+            next(err);
+        }
     }
     
 }

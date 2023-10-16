@@ -72,17 +72,17 @@ DELETE http://localhost:3000/api/v1/profiles/7
 
 -----------------------------------------------------------
 
-// ACCOUNT BANK
+// ---------------- ACCOUNT BANK ----------------
 ###
 // POST ACCOUNTS
 POST http://localhost:3000/api/v1/accounts
 Content-Type: application/json
 
 {
-    "user_id" : 3, 
-    "bank_name" : "acc_bujang",
-    "bank_account_number" : "331122", 
-    "balance" : 9000000
+    "user_id" : 6, 
+    "bank_name" : "acc_asep",
+    "bank_account_number" : "221122", 
+    "balance" : 10000
 }
 
 ###
@@ -91,17 +91,35 @@ GET http://localhost:3000/api/v1/accounts/
 
 ###
 // GET DETAIL ACCOUNT
-GET http://localhost:3000/api/v1/accounts/4
+GET http://localhost:3000/api/v1/accounts/6
 
------------------------------------------------------------
 ###
+// UPDATE ACCOUNTS
+PUT http://localhost:3000/api/v1/accounts/6
+Content-Type: application/json
+
+{
+    "user_id" : 6, 
+    "bank_name" : "acc_asepon",
+    "bank_account_number" : "111111", 
+    "balance" : 20000
+}
+
+###
+// DELETE ACCOUNT
+DELETE http://localhost:3000/api/v1/accounts/6
+-----------------------------------------------------------
+//---------------- TRANSACTIONS ----------------
+
+###
+//CREATE TRANSACTION
 POST http://localhost:3000/api/v1/transactions
 Content-Type: application/json
 
 {
-    "source" : 5,
-    "destination" : 2,
-    "amount" : 200000
+    "source" : 2,
+    "destination" : 1,
+    "amount" : 15000
 }
 
 ###

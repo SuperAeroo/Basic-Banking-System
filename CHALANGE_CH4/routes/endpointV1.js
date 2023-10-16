@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 
 const { createUsers, getAllUsers, getDetailUsers, updateUsers, deleteUsers } = require("../handler/v1/users");
-const { createAccounts, getAllAccounts, getDetailAccounts} = require("../handler/v1/accounts");
+const { createAccounts, getAllAccounts, getDetailAccounts, updateAccounts, deleteAccounts} = require("../handler/v1/accounts");
 const { createTransactions, getAllTransactions, getDetailTransactions } = require("../handler/v1/transactions");
 const { createProfiles, getAllProfiles, getDetailProfiles, updateProfiles, deleteProfiles } = require("../handler/v1/profiles");
 
@@ -32,6 +32,8 @@ router.delete("/profiles/:id", deleteProfiles);
 router.post("/accounts", createAccounts);
 router.get("/accounts", getAllAccounts);
 router.get("/accounts/:id", getDetailAccounts);
+router.put("/accounts/:id", updateAccounts);
+router.delete("/accounts/:id", deleteAccounts);
 
 //transactions
 router.post("/transactions", createTransactions);
