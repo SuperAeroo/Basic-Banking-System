@@ -1,0 +1,148 @@
+// ---------------- USERS ----------------
+// CREATE USERS
+POST http://localhost:3000/api/v1/users
+Content-Type: application/json
+
+{
+    "name" : "renal",
+    "email" : "renal@gmail.com",
+    "password" : "renal123"
+}
+
+###
+// GET ALL USERS
+GET http://localhost:3000/api/v1/users
+
+###
+// GET DETAIL USERS
+GET http://localhost:3000/api/v1/users/2
+
+###
+// CHANGE DETAIL USERS
+PUT http://localhost:3000/api/v1/users/6
+Content-Type: application/json
+
+{
+    "name" : "renalnew",
+    "email" : "renala@gmail.com",
+    "password" : "renal123"
+}
+
+###
+// DELETE USERS
+DELETE http://localhost:3000/api/v1/users/5
+
+-----------------------------------------------------------
+// ---------------- PROFILES ----------------
+###
+// POST PROFILES
+POST http://localhost:3000/api/v1/profiles
+Content-Type: application/json
+
+{
+    "user_id" : 6,
+    "identity_type" : "e-nal",
+    "identity_number" : "662211",
+    "address" : "Zimbabwe"
+}
+
+###
+// GET ALL PROFILES
+GET http://localhost:3000/api/v1/profiles
+
+###
+// GET DETAIL PROFILES
+GET http://localhost:3000/api/v1/profiles/110
+
+###
+// CHANGE DETAIL PROFILES
+PUT http://localhost:3000/api/v1/profiles/8
+Content-Type: application/json
+
+{
+    "user_id" : 6,
+    "identity_type" : "e-nakkk",
+    "identity_number" : "112266",
+    "address" : "New Zealando"
+}
+
+###
+// DELETE PROFILES
+DELETE http://localhost:3000/api/v1/profiles/7
+
+-----------------------------------------------------------
+
+// ---------------- ACCOUNT BANK ----------------
+###
+// POST ACCOUNTS
+POST http://localhost:3000/api/v1/accounts
+Content-Type: application/json
+
+{
+    "user_id" : 6, 
+    "bank_name" : "acc_asep",
+    "bank_account_number" : "221122", 
+    "balance" : 10000
+}
+
+###
+// GET ALL ACCOUNT
+GET http://localhost:3000/api/v1/accounts/
+
+###
+// GET DETAIL ACCOUNT
+GET http://localhost:3000/api/v1/accounts/6
+
+###
+// UPDATE ACCOUNTS
+PUT http://localhost:3000/api/v1/accounts/6
+Content-Type: application/json
+
+{
+    "user_id" : 6, 
+    "bank_name" : "acc_asepon",
+    "bank_account_number" : "111111", 
+    "balance" : 20000
+}
+
+###
+// DELETE ACCOUNT
+DELETE http://localhost:3000/api/v1/accounts/6
+-----------------------------------------------------------
+//---------------- TRANSACTIONS ----------------
+
+###
+//CREATE TRANSACTION
+POST http://localhost:3000/api/v1/transactions
+Content-Type: application/json
+
+{
+    "source" : 1,
+    "destination" : 20,
+    "amount" : 500000
+}
+
+###
+// GET ALL TRANSACTIONS
+GET http://localhost:3000/api/v1/transactions/
+
+###
+// GET DETAIL TRANSACTIONS
+GET http://localhost:3000/api/v1/transactions/10
+
+###
+//UPDATE TRANSACTION
+PUT http://localhost:3000/api/v1/transactions/10
+Content-Type: application/json
+
+{
+    "source_account_id" : 4,
+    "destination_account_id" : 2,
+    "amount" : 15000000000
+}
+
+
+###
+// DELETE TRANSACTIONS
+DELETE http://localhost:3000/api/v1/transactions/10
+

@@ -1,0 +1,1065 @@
+openapi: 3.0.3
+info:
+  title: Chalange CH5
+  description: |-
+    Aplikasi ini akan berguna untuk membantu dalam mengelola api yang ada pada basic banking system .
+  contact:
+    email: 200401141@student.umri.ac.id
+  version: 1.0.0
+servers:
+  - url: http://localhost:3000/api/v1
+  - url: https://test.localhost:3000/api/v1
+  - url: https://basic.com/api/v1
+tags:
+  - name: user
+    description: Everything about your Users
+  - name: profile
+    description: Everything about your Profile
+  - name: account
+    description: Everything about your Account
+  - name: transaction
+    description: Everything about your Transaction
+paths:
+# -------------------------USER-------------------------
+  /users:
+    post:
+      tags:
+        - user
+      operationId: post-create-new-user
+      summary: Create new user
+      description: disini api untuk membuat user baru
+      requestBody:
+        $ref: '#/components/requestBodies/CreateUser'
+      responses:
+        '201':
+          description: Successful user creation
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/BasicResponse'
+                  - type: object
+                    properties:
+                      data:
+                        $ref: '#/components/schemas/UserModel'
+        '400':
+          description: Failed operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: 'Bad Request'
+                  data:
+                    type: object
+                    example: null
+    get:
+      tags:
+        - user
+      operationId: get-fetch-all-user
+      summary: Get all user
+      description: Retrieves a list of all registered users.
+      parameters:
+        - in: query
+          name: page
+          schema:
+            type: integer
+          required: false
+          description: page of content
+        - in: query
+          name: limit
+          schema:
+            type: integer
+          required: false
+          description: limit content per page
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/BasicResponse'
+                  - type: object
+                    properties:
+                      data:
+                        type: object
+                        properties:
+                          pagination:
+                            $ref: '#/components/schemas/Pagination'
+                          users:
+                            type: array
+                            items:
+                              $ref: '#/components/schemas/UserModel'
+        '400':
+          description: Failed operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: 'Bad Request'
+                  data:
+                    type: object
+                    example: null
+  '/users/{userId}':
+    get:
+      tags:
+        - user
+      operationId: get-fetch-user-detail
+      summary: Get detail user
+      description: Retrieves detail of spesific users.
+      parameters:
+        - in: path
+          name: userId
+          schema:
+            type: integer
+          required: true
+          description: The ID of the user to retrieve.
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/BasicResponse'
+                  - type: object
+                    properties:
+                      data:
+                        $ref: '#/components/schemas/UserModel'
+        '400':
+          description: Failed operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: 'Bad Request'
+                  data:
+                    type: string
+                    example: 'no user found with id 1'
+    put:
+      tags:
+        - user
+      operationId: change-user-detail
+      summary: Change detail user
+      description: Change detail of spesific users.
+      parameters:
+        - in: path
+          name: userId
+          schema:
+            type: integer
+          required: true
+          description: The ID of the user to retrieve.
+      requestBody:
+        $ref: '#/components/requestBodies/CreateUser'
+      responses:
+        '200':
+          description: Successful change user detail
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/BasicResponse'
+                  - type: object
+                    properties:
+                      data:
+                        $ref: '#/components/schemas/UserModel'
+        '400':
+          description: Failed operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: 'Bad Request'
+                  data:
+                    type: object
+                    example: null
+    delete:
+      tags:
+        - user
+      operationId: Delete-user
+      summary: Delete user
+      description: Delete of spesific users.
+      parameters:
+        - in: path
+          name: userId
+          schema:
+            type: integer
+          required: true
+          description: The ID of the user to delete.
+      responses:
+        '200':
+          description: Successful delete user
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/BasicResponse'
+                  - type: object
+                    properties:
+                      data:
+                        $ref: '#/components/schemas/UserModel'
+        '400':
+          description: Failed operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: 'Bad Request'
+                  data:
+                    type: object
+                    example: null
+
+# -------------------------PROFILE-------------------------
+  /profiles:
+    post:
+      tags:
+        - profile
+      operationId: post-create-new-profile
+      summary: Create new profile
+      description: disini api untuk membuat profile baru
+      requestBody:
+        $ref: '#/components/requestBodies/CreateProfile'
+      responses:
+        '201':
+          description: Successful user creation
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/BasicResponse'
+                  - type: object
+                    properties:
+                      data:
+                        $ref: '#/components/schemas/ProfileModel'
+        '400':
+          description: Failed operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: 'Bad Request'
+                  data:
+                    type: object
+                    example: null
+    get:
+      tags:
+        - profile
+      operationId: get-fetch-all-profile
+      summary: Get all profile
+      description: Retrieves a list of all registered profiles.
+      parameters:
+        - in: query
+          name: page
+          schema:
+            type: integer
+          required: false
+          description: page of content
+        - in: query
+          name: limit
+          schema:
+            type: integer
+          required: false
+          description: limit content per page
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/BasicResponse'
+                  - type: object
+                    properties:
+                      data:
+                        type: object
+                        properties:
+                          pagination:
+                            $ref: '#/components/schemas/Pagination'
+                          profiles:
+                            type: array
+                            items:
+                              $ref: '#/components/schemas/ProfileModel'
+        '400':
+          description: Failed operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: 'Bad Request'
+                  data:
+                    type: object
+                    example: null
+  '/profiles/{profileId}':
+    get:
+      tags:
+        - profile
+      operationId: get-fetch-profile-detail
+      summary: Get detail profile
+      description: Retrieves detail of spesific profiles.
+      parameters:
+        - in: path
+          name: profileId
+          schema:
+            type: integer
+          required: true
+          description: The ID of the profile to retrieve.
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/BasicResponse'
+                  - type: object
+                    properties:
+                      data:
+                        $ref: '#/components/schemas/ProfileModel'
+        '400':
+          description: Failed operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: 'Bad Request'
+                  data:
+                    type: string
+                    example: 'no profile found with id 1'
+    put:
+      tags:
+        - profile
+      operationId: change-profile-detail
+      summary: Change detail profile
+      description: Change detail of spesific profiles.
+      parameters:
+        - in: path
+          name: profileId
+          schema:
+            type: integer
+          required: true
+          description: The ID of the profile to retrieve.
+      requestBody:
+        $ref: '#/components/requestBodies/CreateProfile'
+      responses:
+        '200':
+          description: Successful change profile detail
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/BasicResponse'
+                  - type: object
+                    properties:
+                      data:
+                        $ref: '#/components/schemas/ProfileModel'
+        '400':
+          description: Failed operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: 'Bad Request'
+                  data:
+                    type: object
+                    example: null
+    delete:
+      tags:
+        - profile
+      operationId: Delete-profile
+      summary: Delete profile
+      description: Delete of spesific profiles.
+      parameters:
+        - in: path
+          name: profileId
+          schema:
+            type: integer
+          required: true
+          description: The ID of the profile to delete.
+      responses:
+        '200':
+          description: Successful delete profile
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/BasicResponse'
+                  - type: object
+                    properties:
+                      data:
+                        $ref: '#/components/schemas/ProfileModel'
+        '400':
+          description: Failed operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: 'Bad Request'
+                  data:
+                    type: object
+                    example: null
+
+# -------------------------ACCOUNT-------------------------
+  /accounts:
+    post:
+      tags:
+        - account
+      operationId: post-create-new-account
+      summary: Create new account
+      description: disini api untuk membuat account baru
+      requestBody:
+        $ref: '#/components/requestBodies/CreateAccount'
+      responses:
+        '201':
+          description: Successful account creation
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/BasicResponse'
+                  - type: object
+                    properties:
+                      data:
+                        $ref: '#/components/schemas/AccountModel'
+        '400':
+          description: Failed operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: 'Bad Request'
+                  data:
+                    type: object
+                    example: null
+    get:
+      tags:
+        - account
+      operationId: get-fetch-all-account
+      summary: Get all account
+      description: Retrieves a list of all registered accounts.
+      parameters:
+        - in: query
+          name: page
+          schema:
+            type: integer
+          required: false
+          description: page of content
+        - in: query
+          name: limit
+          schema:
+            type: integer
+          required: false
+          description: limit content per page
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/BasicResponse'
+                  - type: object
+                    properties:
+                      data:
+                        type: object
+                        properties:
+                          pagination:
+                            $ref: '#/components/schemas/Pagination'
+                          accounts:
+                            type: array
+                            items:
+                              $ref: '#/components/schemas/AccountModel'
+        '400':
+          description: Failed operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: 'Bad Request'
+                  data:
+                    type: object
+                    example: null
+  '/accounts/{accountId}':
+    get:
+      tags:
+        - account
+      operationId: get-fetch-account-detail
+      summary: Get detail account
+      description: Retrieves detail of spesific accounts.
+      parameters:
+        - in: path
+          name: accountId
+          schema:
+            type: integer
+          required: true
+          description: The ID of the account to retrieve.
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/BasicResponse'
+                  - type: object
+                    properties:
+                      data:
+                        $ref: '#/components/schemas/AccountModel'
+        '400':
+          description: Failed operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: 'Bad Request'
+                  data:
+                    type: string
+                    example: 'no account found with id 1'
+    put:
+      tags:
+        - account
+      operationId: change-account-detail
+      summary: Change detail account
+      description: Change detail of spesific accounts.
+      parameters:
+        - in: path
+          name: accountId
+          schema:
+            type: integer
+          required: true
+          description: The ID of the account to retrieve.
+      requestBody:
+        $ref: '#/components/requestBodies/CreateAccount'
+      responses:
+        '200':
+          description: Successful change account detail
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/BasicResponse'
+                  - type: object
+                    properties:
+                      data:
+                        $ref: '#/components/schemas/AccountModel'
+        '400':
+          description: Failed operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: 'Bad Request'
+                  data:
+                    type: object
+                    example: null
+    delete:
+      tags:
+        - account
+      operationId: Delete-account
+      summary: Delete account
+      description: Delete of spesific accounts.
+      parameters:
+        - in: path
+          name: accountId
+          schema:
+            type: integer
+          required: true
+          description: The ID of the account to delete.
+      responses:
+        '200':
+          description: Successful delete account
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/BasicResponse'
+                  - type: object
+                    properties:
+                      data:
+                        $ref: '#/components/schemas/AccountModel'
+        '400':
+          description: Failed operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: 'Bad Request'
+                  data:
+                    type: object
+                    example: null
+
+# -------------------------TRANSACTION-------------------------
+  /transactions:
+    post:
+      tags:
+        - transaction
+      operationId: post-create-new-transaction
+      summary: Create new transaction
+      description: disini api untuk membuat transaction baru
+      requestBody:
+        $ref: '#/components/requestBodies/CreateTransaction'
+      responses:
+        '201':
+          description: Successful transaction creation
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/BasicResponse'
+                  - type: object
+                    properties:
+                      data:
+                        $ref: '#/components/schemas/TransactionModel'
+        '400':
+          description: Failed operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: 'Bad Request'
+                  data:
+                    type: object
+                    example: null
+    get:
+      tags:
+        - transaction
+      operationId: get-fetch-all-transaction
+      summary: Get all transaction
+      description: Retrieves a list of all registered transactions.
+      parameters:
+        - in: query
+          name: page
+          schema:
+            type: integer
+          required: false
+          description: page of content
+        - in: query
+          name: limit
+          schema:
+            type: integer
+          required: false
+          description: limit content per page
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/BasicResponse'
+                  - type: object
+                    properties:
+                      data:
+                        type: object
+                        properties:
+                          pagination:
+                            $ref: '#/components/schemas/Pagination'
+                          transactions:
+                            type: array
+                            items:
+                              $ref: '#/components/schemas/TransactionModel'
+        '400':
+          description: Failed operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: 'Bad Request'
+                  data:
+                    type: object
+                    example: null
+  '/transactions/{transactionId}':
+    get:
+      tags:
+        - transaction
+      operationId: get-fetch-transaction-detail
+      summary: Get detail transaction
+      description: Retrieves detail of spesific transactions.
+      parameters:
+        - in: path
+          name: transactionId
+          schema:
+            type: integer
+          required: true
+          description: The ID of the transaction to retrieve.
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/BasicResponse'
+                  - type: object
+                    properties:
+                      data:
+                        $ref: '#/components/schemas/TransactionModel'
+        '400':
+          description: Failed operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: 'Bad Request'
+                  data:
+                    type: string
+                    example: 'no transaction found with id 1'
+    put:
+      tags:
+        - transaction
+      operationId: change-transaction-detail
+      summary: Change detail transaction
+      description: Change detail of spesific transactions.
+      parameters:
+        - in: path
+          name: transactionId
+          schema:
+            type: integer
+          required: true
+          description: The ID of the transaction to retrieve.
+      requestBody:
+        $ref: '#/components/requestBodies/CreateTransaction'
+      responses:
+        '200':
+          description: Successful change transaction detail
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/BasicResponse'
+                  - type: object
+                    properties:
+                      data:
+                        $ref: '#/components/schemas/TransactionModel'
+        '400':
+          description: Failed operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: 'Bad Request'
+                  data:
+                    type: object
+                    example: null
+    delete:
+      tags:
+        - transaction
+      operationId: Delete-transaction
+      summary: Delete transaction
+      description: Delete of spesific transactions.
+      parameters:
+        - in: path
+          name: transactionId
+          schema:
+            type: integer
+          required: true
+          description: The ID of the transaction to delete.
+      responses:
+        '200':
+          description: Successful delete transaction
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/BasicResponse'
+                  - type: object
+                    properties:
+                      data:
+                        $ref: '#/components/schemas/TransactionModel'
+        '400':
+          description: Failed operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: 'Bad Request'
+                  data:
+                    type: object
+                    example: null
+
+# BATAS TEMPLATE
+
+components:
+  schemas:
+    BasicResponse:
+      title: BasicResponse
+      type: object
+      properties:
+        status:
+          type: boolean
+          example: true
+        message:
+          type: string
+          example: 'success'
+    UserModel:
+      title: User
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        name:
+          type: string
+          example: 'bujang'
+        email:
+          type: string
+          example: 'bujang@mail.com'
+        password:
+          type: string
+          example: 'bujang123'
+    ProfileModel:
+      title: Profile
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        user_id:
+          type: integer
+          example: 1
+        identity_type:
+          type: string
+          example: 'e-passport'
+        identity_number:
+          type: string
+          example: '9988002299'
+        address:
+          type: string
+          example: 'pekanbaru - riau'
+    AccountModel:
+      title: Account
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        user_id:
+          type: integer
+          example: 1
+        bank_name:
+          type: string
+          example: 'bujang acc'
+        bank_account_number:
+          type: string
+          example: '9988002299'
+        balance:
+          type: integer
+          example: 1500000
+    TransactionModel:
+      title: Transaction
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        source:
+          type: integer
+          example: 1
+        destination:
+          type: integer
+          example: 2
+        amount:
+          type: integer
+          example: 150000
+    Pagination:
+      title: Pagination
+      type: object
+      properties:
+        links:
+          type: object
+          properties:
+            next:
+              type: string
+              example: 'https://domain.com/users?page=3&limit=10'
+            prev:
+              type: string
+              example: 'https://domain.com/users?page=1&limit=10'
+        total_items:
+          type: integer
+          example: 100
+  requestBodies:
+    CreateUser:
+      content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: 'bujang'
+                email:
+                  type: string
+                  example: 'bujang@mail.com'
+                password:
+                  type: string
+                  example: 'bujang123'
+    CreateProfile:
+      content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user_id:
+                  type: integer
+                  example: 1
+                identity_type:
+                  type: string
+                  example: 'e-sim'
+                identity_number:
+                  type: string
+                  example: '147100889977'
+                address:
+                  type: string
+                  example: 'pekanbaru - riau'
+    CreateAccount:
+      content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user_id:
+                  type: integer
+                  example: 1
+                bank_name:
+                  type: string
+                  example: 'bujang acc'
+                bank_account_number:
+                  type: string
+                  example: '009922882'
+                balance:
+                  type: integer
+                  example: 1500000
+    CreateTransaction:
+      content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                source:
+                  type: integer
+                  example: 1
+                destination:
+                  type: integer
+                  example: 2
+                amount:
+                  type: integer
+                  example: 100000
