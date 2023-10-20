@@ -28,12 +28,12 @@ app.use((req,res,next) => {
 })
 
 // 500 error handling
-// app.use((err, req, res, next) => {
-//     res.status(500).json({
-//         status: false,
-//         message: 'Internal Server Error',
-//         data: err
-//     });
-// });
+app.use((err, req, res, next) => {
+    res.status(500).json({
+        status: false,
+        message: 'Internal Server Error',
+        data: err
+    });
+});
 
 app.listen(PORT, () => console.log("SERVER SEDANG BERJALAN PADA PORT : ", PORT))

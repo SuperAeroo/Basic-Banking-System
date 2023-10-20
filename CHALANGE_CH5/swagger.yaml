@@ -1,6 +1,6 @@
 openapi: 3.0.3
 info:
-  title: Chalange CH5
+  title: Chalange CH5 Banking System API
   description: |-
     Aplikasi ini akan berguna untuk membantu dalam mengelola api yang ada pada basic banking system .
   contact:
