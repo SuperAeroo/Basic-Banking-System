@@ -155,7 +155,7 @@ describe('test DELETE /api/v1/users/:id', () => {
       expect(body).toHaveProperty('message');
       expect(body).toHaveProperty('data');
     } catch (err) {
-      expect('Id doesn\'t exist!');
+      expect(err).toBe('Id doesn\'t exist!');
     }
   });
   test('test delete pengguna dengan ID yang terdaftar -> Sukses', async () => {
@@ -168,7 +168,7 @@ describe('test DELETE /api/v1/users/:id', () => {
       expect(body).toHaveProperty('message');
       expect(body).toHaveProperty('data');
     } catch (err) {
-      expect('error');
+      expect(err).toBe('Id doesn\'t exist!');
     }    
     
   });

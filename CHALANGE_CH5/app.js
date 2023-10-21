@@ -17,6 +17,8 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 var usersRouter = require('./routes/users.routes');
 var profilesRouter = require('./routes/profiles.routes');
+var accountsRouter = require('./routes/accounts.routes');
+var transactionsRouter = require('./routes/transactions.routes');
 
 
 app.use(cors());
@@ -26,6 +28,8 @@ app.use('/api/v1',endPointV1)
 
 app.use('/api/v1/users', usersRouter);
 app.use('/api/v1/profiles', profilesRouter);
+app.use('/api/v1/accounts', accountsRouter);
+app.use('/api/v1/transactions', transactionsRouter);
 
 // 404 err handling
 app.use((req,res,next) => {
