@@ -145,7 +145,7 @@ describe('test PUT /api/v1/users/:id endpoint', () => {
 })
 
 describe('test DELETE /api/v1/users/:id', () => {
-  test('Uji menghapus pengguna dengan ID yang tidak terdaftar -> Gagal', async () => {
+  test('test delete pengguna dengan ID yang tidak terdaftar -> Gagal', async () => {
     try {
       const { statusCode, body } = await request(app)
       .delete(`/api/v1/users/${users.id + 1000}`);
@@ -158,7 +158,7 @@ describe('test DELETE /api/v1/users/:id', () => {
       expect('Id doesn\'t exist!');
     }
   });
-  test('Uji menghapus pengguna dengan ID yang terdaftar -> Sukses', async () => {
+  test('test delete pengguna dengan ID yang terdaftar -> Sukses', async () => {
     try {
       const { statusCode, body } = await request(app)
       .delete(`/api/v1/users/${users.id}`);
