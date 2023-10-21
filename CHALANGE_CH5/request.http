@@ -117,9 +117,9 @@ POST http://localhost:3000/api/v1/transactions
 Content-Type: application/json
 
 {
-    "source" : 1,
-    "destination" : 20,
-    "amount" : 500000
+    "source_account_id" : 1,
+    "destination_account_id" : 2,
+    "amount" : 1000
 }
 
 ###

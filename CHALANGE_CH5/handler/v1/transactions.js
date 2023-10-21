@@ -5,11 +5,11 @@ const { getPagination } = require('../../helpers');
 module.exports = {
     createTransactions : async (req, res, next) =>{
         try {
-            let { source, destination, amount} = req.body
+            let { source_account_id, destination_account_id, amount} = req.body
 
             // validasi userId source & destination
-            let existSourceId = await prisma.bank_Accounts.findFirst({where : {id:source},})
-            let existDestinationId = await prisma.bank_Accounts.findFirst({where : {id:destination},})
+            let existSourceId = await prisma.bank_Accounts.findFirst({where : {id:source_account_id},})
+            let existDestinationId = await prisma.bank_Accounts.findFirst({where : {id:destination_account_id},})
             if (!existSourceId || !existDestinationId) {
                 return res.status(400).json({
                     status: false,
@@ -27,15 +27,15 @@ module.exports = {
             }
             let createTransaction = await prisma.transactions.create({
                 data: {
-                    source_account_id : source,
-                    destination_account_id : destination,
-                    amount : amount,
+                    source_account_id,
+                    destination_account_id,
+                    amount,
                 },
             });
 
             await prisma.bank_Accounts.update({
                 where: {
-                    id: source,
+                    id: source_account_id,
                 },
                 data: {
                     balance: {
@@ -46,7 +46,7 @@ module.exports = {
 
             await prisma.bank_Accounts.update({
                 where: {
-                    id: destination,
+                    id: destination_account_id,
                 },
                 data: {
                     balance: {

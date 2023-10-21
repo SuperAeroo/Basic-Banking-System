@@ -1,12 +1,12 @@
-const { createTransactions, getTransactionsById, updateTransactions, deletetransactions } = require('../libs/transactions.libs');
+const { newTransactions, getTransactionsById, updateTransactions, deleteTransactions } = require('../libs/transactions.libs');
 
 module.exports = {
-  createTransactions: async (req, res, next) => {
+  newTransactions: async (req, res, next) => {
     try {
       let { source_account_id, destination_account_id, amount } = req.body;
 
       try {
-        let transactions = await createTransactions(source_account_id, destination_account_id, amount);
+        let transactions = await newTransactions(source_account_id, destination_account_id, amount);
 
         return res.status(201).json({
           status: false,
@@ -55,7 +55,7 @@ module.exports = {
   updateTransactions: async (req, res, next) => {
     try {
       let { id } = req.params;
-      let newData = req.body; // Data baru untuk transactions yang diperbarui
+      let newData = req.body;
 
       try {
         let updatedTransactions = await updateTransactions(Number(id), newData);

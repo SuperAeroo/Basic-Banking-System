@@ -2,20 +2,28 @@ const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 
 module.exports = {
-  createTransactions: async (source_account_id, destination_account_id, amount) => {
+  newTransactions: async (source_account_id, destination_account_id, amount) => {
     try {
-      const existTransactions = await prisma.transactions.findUnique({ where: { id } });
-      if (existTransactions) throw 'id has been used!';
+      const existSourceId = await prisma.bank_Accounts.findUnique({ where: { id : source_account_id } });
+      const existDestinationId = await prisma.bank_Accounts.findUnique({ where: { id : destination_account_id } });
+
+      if (!existSourceId || !existDestinationId ) throw 'Source Id Or Destination Not Found!';
+
+      if (existSourceId.balance < amount ) throw 'saldo tidak mencukupi'
+
 
       const transactions = await prisma.transactions.create({
         data: {
           source_account_id,
           destination_account_id,
-          amount,
+          amount
         }
       });
+      await prisma.bank_Accounts.update({ where:{id : existSourceId},data:{balance: {decrement: amount}} })
+      await prisma.bank_Accounts.update({ where:{id : existDestinationId},data:{balance: {increment: amount}} })
       return transactions;
     } catch (err) {
+      // console.log(err);
       throw (err);
     }
   },
@@ -44,7 +52,7 @@ module.exports = {
     }
   },
 
-  deletetransactions: async (id) => {
+  deleteTransactions: async (id) => {
     try {
       const existingTransactions = await prisma.transactions.findUnique({ where: { id } });
       if (!existingTransactions) throw 'transactions doesn\'t exist!';

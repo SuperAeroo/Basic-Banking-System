@@ -54,7 +54,7 @@ module.exports = {
   updateProfiles : async (req, res, next) => {
     try {
       let { id } = req.params;
-      let newData = req.body; // data baru untuk profiles yang diperbarui
+      let newData = req.body; 
 
       try {
         let updateProfile = await updateProfiles(Number(id), newData);
