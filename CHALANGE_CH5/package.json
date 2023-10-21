@@ -1,10 +1,12 @@
 {
-  "name": "chalange_ch4",
-  "version": "1.0.0",
+  "name": "chalange_ch5",
+  "version": "1.0.1",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon app.js"
+    "start": "node ./bin/www",
+    "dev": "nodemon ./bin/www",
+    "test": "jest"
   },
   "keywords": [],
   "author": "",
@@ -12,8 +14,11 @@
   "dependencies": {
     "@prisma/client": "^5.4.2",
     "cors": "^2.8.5",
+    "debug": "^4.3.4",
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
+    "jest": "^29.7.0",
+    "morgan": "^1.10.0",
     "prisma": "^5.4.2",
     "supertest": "^6.3.3",
     "swagger-jsdoc": "^6.2.8",

@@ -18,7 +18,7 @@ module.exports = {
             }
             //create users
             let newUsers = await prisma.users.create({
-                data:{ name : name, email : email, password : password }
+                data:{ name, email, password }
             })
             res.status(201).json({
                 status:true,
