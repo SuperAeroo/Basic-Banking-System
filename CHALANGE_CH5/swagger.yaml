@@ -11,6 +11,8 @@ servers:
   - url: https://test.localhost:3000/api/v1
   - url: https://basic.com/api/v1
 tags:
+  - name: auth
+    description: Everything about authenticate
   - name: user
     description: Everything about your Users
   - name: profile
@@ -20,6 +22,70 @@ tags:
   - name: transaction
     description: Everything about your Transaction
 paths:
+# -------------------------AUTH-------------------------
+  /auth/register:
+    post:
+      tags:
+        - auth
+      operationId: post-auth-register
+      summary: Create a new user
+      description: Creates a new user with the provided information.
+      requestBody:
+        $ref: "#/components/requestBodies/CreateUser"
+      responses:
+        "201":
+          description: Successful user creation
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "#/components/schemas/BasicResponse"
+                  - type: object
+                    properties:
+                      data:
+                        $ref: '#/components/schemas/UserModel'
+  /auth/login:
+    post:
+      tags:
+        - auth
+      operationId: post-auth-login
+      summary: User Login
+      description: Login to get token
+      requestBody:
+        $ref: "#/components/requestBodies/Login"
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "#/components/schemas/BasicResponse"
+                  - type: object
+                    properties:
+                      data:
+                        $ref: '#/components/schemas/UserModel'
+  /auth/authenticate:
+    get:
+      tags:
+        - auth
+      operationId: get-fetch-user-detail
+      summary: Get user details
+      description: Retrieves details of a specific user.
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "#/components/schemas/BasicResponse"
+                  - type: object
+                    properties:
+                      data:
+                        $ref: "#/components/schemas/UserModel"
+      security:
+        - bearerAuth: []
 # -------------------------USER-------------------------
   /users:
     post:
@@ -899,6 +965,11 @@ paths:
 # BATAS TEMPLATE
 
 components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
   schemas:
     BasicResponse:
       title: BasicResponse
@@ -1063,3 +1134,15 @@ components:
                 amount:
                   type: integer
                   example: 100000
+    Login:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              email:
+                type: string
+                example: "bujang@mail.com"
+              password:
+                type: string
+                example: "password123"
